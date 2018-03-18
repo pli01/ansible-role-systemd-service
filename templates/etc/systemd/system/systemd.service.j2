@@ -61,8 +61,8 @@ Nice={{ item.value.nice }}
 {% endif -%}
 
 {% if item.value.exec_stop is defined %}
-{% for exec_post in item.value.exec_post %}
-ExecStop={{ exec_post }}
+{% for exec_stop in item.value.exec_stop %}
+ExecStop={{ exec_stop }}
 {% endfor -%}
 {% endif -%}
 {% if item.value.exec_stop_post is defined %}
