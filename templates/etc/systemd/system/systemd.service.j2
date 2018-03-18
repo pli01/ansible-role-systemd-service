@@ -19,6 +19,9 @@ After={{ item.value.after }}
 {% if item.value.type is defined %}
 Type={{ item.value.type }}
 {% endif -%}
+{% if item.value.remain_after_exit is defined %}
+RemainAfterExit={{ item.value.remain_after_exit }}
+{% endif -%}
 {% if item.value.pid_file is defined %}
 PIDFile={{ item.value.pid_file }}
 {% endif -%}
@@ -58,23 +61,35 @@ Nice={{ item.value.nice }}
 {% endif -%}
 
 {% if item.value.exec_stop is defined %}
-ExecStop={{ item.value.exec_stop }}
+{% for exec_post in item.value.exec_post %}
+ExecStop={{ exec_post }}
+{% endfor -%}
 {% endif -%}
 {% if item.value.exec_stop_post is defined %}
-ExecStopPost={{ item.value.exec_stop_post }}
+{% for exec_stop_post in item.value.exec_stop_post %}
+ExecStopPost={{ exec_stop_post }}
+{% endfor -%}
 {% endif -%}
 {% if item.value.exec_reload is defined %}
-ExecReload={{ item.value.exec_reload }}
+{% for exec_reload in item.value.exec_reload %}
+ExecReload={{ exec_reload }}
+{% endfor -%}
 {% endif -%}
 
 {% if item.value.exec_start_pre is defined %}
-ExecStartPre={{ item.value.exec_start_pre }}
+{% for exec_start_pre in item.value.exec_start_pre %}
+ExecStartPre={{ exec_start_pre }}
+{% endfor -%}
 {% endif -%}
 {% if item.value.exec_start_post is defined %}
-ExecStartPost={{ item.value.exec_start_post }}
+{% for exec_start_post in item.value.exec_start_post %}
+ExecStartPost={{ exec_start_post }}
+{% endfor -%}
 {% endif -%}
 {% if item.value.exec_start is defined %}
-ExecStart={{ item.value.exec_start }}
+{% for exec_start in item.value.exec_start %}
+ExecStart={{ exec_start }}
+{% endfor -%}
 {% endif -%}
 
 {% if item.value.standard_input is defined %}
