@@ -1,0 +1,17 @@
+---
+- name: "disable service"
+  systemd:
+    name: "{{ item.key }}"
+    enabled: "False"
+    state: stopped
+  with_dict: "{{ systemd_service }}"
+  tags:
+    - systemd-service
+
+- name: "remove systemd service"
+  file:
+    path: "/etc/systemd/system/{{ item.key }}.service"
+    state: absent
+  with_dict: "{{ systemd_service }}"
+  tags:
+    - systemd-service
