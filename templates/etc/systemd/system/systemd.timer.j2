@@ -1,0 +1,61 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description="{{ item.value.description | default("Service for " + item.key) }}"
+{% if item.value.wants is defined %}
+Wants={{ item.value.wants }}
+{% endif -%}
+{% if item.value.requires is defined %}
+Requires={{ item.value.requires }}
+{% endif -%}
+{% if item.value.before is defined %}
+Before={{ item.value.before }}
+{% endif -%}
+{% if item.value.after is defined %}
+After={{ item.value.after }}
+{% endif %}
+
+[Timer]
+{% if item.value.on_active is defined %}
+OnActiveSec={{ item.value.on_active }}
+{% endif -%}
+{% if item.value.on_boot is defined %}
+OnBootSec={{ item.value.on_boot }}
+{% endif -%}
+{% if item.value.on_startup is defined %}
+OnStartupSec={{ item.value.on_startup }}
+{% endif -%}
+{% if item.value.on_unit_active is defined %}
+OnUnitActiveSec={{ item.value.on_unit_active }}
+{% endif -%}
+{% if item.value.on_unit_inactive is defined %}
+OnUnitInactiveSec={{ item.value.on_unit_inactive }}
+{% endif -%}
+
+{% if item.value.on_calendar is defined %}
+OnCalendar={{ item.value.on_calendar }}
+{% endif -%}
+
+{% if item.value.accuracy is defined %}
+AccuracySec={{ item.value.accuracy }}
+{% endif -%}
+
+{% if item.value.unit is defined %}
+Unit={{ item.value.unit }}
+{% endif -%}
+
+{% if item.value.persistent is defined %}
+Persistent={{ item.value.persistent }}
+{% endif -%}
+
+{% if item.value.wake_system is defined %}
+WakeSystem={{ item.value.wake_system }}
+{% endif -%}
+
+[Install]
+{% if item.value.wanted_by is defined %}
+WantedBy={{ item.value.wanted_by }}
+{% endif -%}
+{% if item.value.required_by is defined %}
+RequiredBy={{ item.value.required_by }}
+{% endif %}

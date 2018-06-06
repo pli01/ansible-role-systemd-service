@@ -10,10 +10,33 @@
   tags:
     - systemd-service
 
+- name: "create systemd timer"
+  template:
+    src: "etc/systemd/system/systemd.timer.j2"
+    dest: "/etc/systemd/system/{{ item.key }}.timer"
+    mode: 0664
+  with_dict: "{{ systemd_timer }}"
+#  notify:
+#    - restart service
+  tags:
+    - systemd-service
+
 - name: "enable service"
   systemd:
     name: "{{ item.key }}"
     enabled: "{{ item.value.enabled | default(False) }}"
+    daemon_reload: yes
   with_dict: "{{ systemd_service }}"
+  tags:
+    - systemd-service
+
+- name: "enable timer"
+  systemd:
+    name: "{{ item.key }}.timer"
+    enabled: "{{ item.value.enabled | default(False) }}"
+    state: started
+    daemon_reload: yes
+  with_dict: "{{ systemd_timer }}"
+  when: ( item.value.enabled is defined and item.value.enabled | bool )
   tags:
     - systemd-service

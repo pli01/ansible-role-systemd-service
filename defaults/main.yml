@@ -1,6 +1,7 @@
 ---
 action: install
 systemd_service: {}
+systemd_timer: {}
 
 #
 # systemd_service:

@@ -5,3 +5,4 @@
     state: restarted
     daemon_reload: yes
   with_dict: "{{ systemd_service }}"
+  when: ( item.value.enabled is defined and item.value.enabled | bool )
