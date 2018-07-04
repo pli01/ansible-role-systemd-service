@@ -40,3 +40,13 @@
   when: ( item.value.enabled is defined and item.value.enabled | bool )
   tags:
     - systemd-service
+
+- name: "restart service when needed"
+  systemd:
+    name: "{{ item.key }}"
+    state: restarted
+    daemon_reload: yes
+  with_dict: "{{ systemd_service }}"
+  when:
+    - ( restart_systemd_service is defined and restart_systemd_service | bool )
+    - ( item.value.enabled is defined and item.value.enabled | bool )
