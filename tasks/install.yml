@@ -29,6 +29,7 @@
   with_dict: "{{ systemd_service }}"
   tags:
     - systemd-service
+  when: ( item.value.enabled is defined and item.value.enabled | bool )
 
 - name: "enable timer"
   systemd:
